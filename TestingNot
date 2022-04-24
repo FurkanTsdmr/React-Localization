@@ -1,0 +1,84 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import Counter from './index'
+
+describe('Counter Tests', () => {
+    // describe: Butun testler calismadan once veya calistiktan sonra sunlari yap diyebiliyoruz.
+    // let ile asagida kullanicagimiz icin tanimliyoruz.
+    let increaseBtn, decreaseBtn, count;
+
+
+    beforeEach(() => {
+        // Her testen once calisacagim demek.
+        // console.log("Bir kere calisacagim.");
+        // Asagida fazladan yazilan kodlari temize cekmemize de yarar.
+        // beforeEach: Hepsinden once sunlari yap demek.
+        render(<Counter />);
+        increaseBtn = screen.getByText("Increase")
+        decreaseBtn = screen.getByText("Decrease")
+        count = screen.getAllByText("0");
+    })
+
+
+    // Tum testlerden once 1 defaya mahsus calisir.
+    beforeAll(() => {
+        console.log("Bir kere calisacagim.");
+    })
+
+    aftrerEach(()=>{
+        console.log("Her testen sonra calisacagim.");
+    })
+
+    // Herseyden sonra calisacaktir demek.
+    afterAll(()=>{
+        console.log("Herseyden sonra 1 defa calisacagim.");
+    })
+
+
+    // Arttirma butonu icin yazdigimiz test kodu
+    test("increase btn", () => {
+        // // Yapmak istedigimiz test otomasyonunu yazariz.
+        // render(<Counter />);
+        // Icinde 0 yazan elementi buldurduk.
+        // const count = screen.getAllByText("0");
+        // Alttaki tanimda butonu nasil sectigimizi yaptik.
+        // const increaseBtn = screen.getByText("Increase")
+        // Tiklama islemini yaptik.
+        userEvent.click(increaseBtn);
+        // Butona bastik ne olmasini bekliyoruz onu tanimladik.
+        expect(count).toHaveTextContent("1");
+        // Butona bastiktan sorna bu textcontent'i 1 olmali diyoruz.
+
+    });
+
+
+    // Azaltma butonu icin yazdigimiz test kodu
+    test("decrease btn", () => {
+        // Yapmak istedigimiz test otomasyonunu yazariz.
+        // render(<Counter />);
+        // Icinde 0 yazan elementi buldurduk.
+        // const count = screen.getAllByText("0");
+        // Alttaki tanimda butonu nasil sectigimizi yaptik.
+        // const decreaseBtn = screen.getByText("Decrease")
+        // Tiklama islemini yaptik.
+        userEvent.click(decreaseBtn);
+        // Butona bastik ne olmasini bekliyoruz onu tanimladik.
+        expect(count).toHaveTextContent("-1");
+        // Butona bastiktan sorna bu textcontent'i -1 olmali diyoruz.
+
+    });
+
+})
+
+
+
+
+
+
+
+
+
+// butona baisldiginda sayi 1 artmali
+// .. olmali gibi
+// it should be a valid email address
